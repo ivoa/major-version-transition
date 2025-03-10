@@ -1,0 +1,33 @@
+pageSetup:
+  margin-right: 7cm
+
+styles:
+  base:
+    fontName: LiberationSerif-Regular
+    fontSize: 12pt
+    leading: 13
+    hyphenation: true
+    alignment: TA_LEFT
+    kerning: true
+
+  heading:
+    fontName: NotoSans-Bold
+
+  title:
+    fontSize: 150%
+    backColor: "#66666"
+    textColor: "#fffff"
+    borderPadding: 6
+
+  heading1:
+    spaceBefore: 20
+    fontSize: 150%
+
+  heading2:
+    fontSize: 120%
+
+  heading3:
+    fontName: NotoSans-Regular
+
+  bodytext:
+    alignment: TA_LEFT
