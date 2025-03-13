@@ -16,6 +16,11 @@ How to manage major version transitions in the Virtual Observatory
 the README as ReStructuredText.  Feel free to change directly or to do a
 Pull Request; don't forget to add yourself to the authors).
 
+A previous attempt to tackle this issue, strickly in XML schema, was
+documented in a technical note, XML Schema Versioning Policies\ 
+[#schemaversioning]_.  The proposed policies in this document haven't
+had much up take (only in the VOSpace 2.1 specification?), and require a
+lot of code complexity in both client and server.
 
 Desiderata
 ----------
@@ -256,6 +261,8 @@ Conclusions
 
 It is certainly a nasty problem.  We need to talk and scheme.
 
+.. [#schemaversioning] The IVOA XML Schema Versioning document from 2018:
+  https://ivoa.net/documents/Notes/XMLVers/20180529/EN-schemaVersioning-1.0-20180529.html
 
 .. [#notideal] By the way, that hasn't worked too well either.  The
   golden rule of interoperability (“be strict in what you produce, be
