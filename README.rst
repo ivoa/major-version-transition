@@ -2,9 +2,11 @@
 How to manage major version transitions in the Virtual Observatory
 ==================================================================
 
-:date: 2025-03-10
-:authors: - Markus Demleitner
-:lang: en
+:Date: 2025-03-10
+:Authors:
+  - Markus Demleitner
+  - Brian Major
+:Lang: en
 
 
 .. contents::
@@ -15,12 +17,6 @@ How to manage major version transitions in the Virtual Observatory
 (This might become an IVOA note one day; for now, we keep the content in
 the README as ReStructuredText.  Feel free to change directly or to do a
 Pull Request; don't forget to add yourself to the authors).
-
-A previous attempt to tackle this issue, strickly in XML schema, was
-documented in a technical note, XML Schema Versioning Policies\ 
-[#schemaversioning]_.  The proposed policies in this document haven't
-had much up take (only in the VOSpace 2.1 specification?), and require a
-lot of code complexity in both client and server.
 
 Desiderata
 ----------
@@ -100,12 +96,23 @@ Exceptions
 ----------
 
 Sometimes we can introduce breaking changes with impunity because we
-*know* they do not *actually* break anything.  A classic example is when
+*know* they do not *actually* break anything.  In this section, we look
+at some examples for how we allow standard changes that *might* be
+breaking to go forward nevertheless.
+
+Removing Unused XSD Types in the Registry
+'''''''''''''''''''''''''''''''''''''''''
+
+A classic example is when
 SimpleDALRegExt has defined a type ProtoSpectralAccess and we can see in
 the Registry that nobody uses this type any more.  Hence, no publishing
 registry will become invalid when we pull the type, and a change that
 could technically be breaking will almost certainly not have bad
 consequences.
+
+
+Keeping Legacy Behaviour as a Fallback
+''''''''''''''''''''''''''''''''''''''
 
 Sometimes we may have “soft breakage”.  Consider an image service that
 would like to offer cutouts.
@@ -122,6 +129,36 @@ FITSes, a datalink-enabled client can offer additional retrieval options
 that a legacy client cannot, which arguably makes the VO “look
 different”.  But at least the legacy clients still do what they were
 expected to do when they were written (retrieve full images).
+
+
+Evolving XML Schema While Keeping the Target Namespace
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+In the early days of the Virtual Observatory, XML namespace URIs were
+written with minor versions in them (for instance,
+``http://www.ivoa.net/xml/VOTable/v1.1`` for the original VOTable).
+This made even minor version steps break all XML-conformant clients.
+This mistake was repaired in an endorsed Note, `XML Schema Versioning
+Policies`_.  The note in particular explains which kinds of changes are
+legal while keeping the namespace URIs constant (i.e., „what is a
+non-breaking change?“), which has certain impacts on how clients need to
+be written.  The most important requirement here is that VO clients
+parsing XML must ignore unknown elements to ensure that future
+developments can add features.
+
+.. _XML Schema Versioning Policies: https://ivoa.net/documents/Notes/XMLVers/
+
+The XML versioning policies try hard not to break anything itself.  In
+particular, it froze the namespace URIs whereever they were whan it was
+adopted.  The consequence is that the XML schema version and the version
+apparently implied from the namespace URI now disagree.  For instance,
+``http://www.ivoa.net/xml/VOTable/v1.3`` is the namespace URI for
+VOTable versions 1.3, 1.4, and 1.5 (and all further VOTable 1 versions).
+While this keeps confusing implementors, this is at the same time an
+example for the sort of pain one has to accept when maintaining
+interoperability with systems that were designed in a suboptimal way –
+and of how little errors made when authoring standards can explode
+into huge problems when evolving technologies.
 
 
 Case Study: Cone Search
@@ -260,9 +297,6 @@ Conclusions
 -----------
 
 It is certainly a nasty problem.  We need to talk and scheme.
-
-.. [#schemaversioning] The IVOA XML Schema Versioning document from 2018:
-  https://ivoa.net/documents/Notes/XMLVers/20180529/EN-schemaVersioning-1.0-20180529.html
 
 .. [#notideal] By the way, that hasn't worked too well either.  The
   golden rule of interoperability (“be strict in what you produce, be
