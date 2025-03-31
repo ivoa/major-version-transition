@@ -167,6 +167,36 @@ and of how little errors made when authoring standards can explode
 into huge problems when evolving technologies.
 
 
+Evolving XML Schema While Keeping the Target Namespace
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+In the early days of the Virtual Observatory, XML namespace URIs were
+written with minor versions in them (for instance,
+``http://www.ivoa.net/xml/VOTable/v1.1`` for the original VOTable).
+This made even minor version steps break all XML-conformant clients.
+This mistake was repaired in an endorsed Note, `XML Schema Versioning
+Policies`_.  The note in particular explains which kinds of changes are
+legal while keeping the namespace URIs constant (i.e., „what is a
+non-breaking change?“), which has certain impacts on how clients need to
+be written.  The most important requirement here is that VO clients
+parsing XML must ignore unknown elements to ensure that future
+developments can add features.
+
+.. _XML Schema Versioning Policies: https://ivoa.net/documents/Notes/XMLVers/
+
+The XML versioning policies try hard not to break anything itself.  In
+particular, it froze the namespace URIs whereever they were whan it was
+adopted.  The consequence is that the XML schema version and the version
+apparently implied from the namespace URI now disagree.  For instance,
+``http://www.ivoa.net/xml/VOTable/v1.3`` is the namespace URI for
+VOTable versions 1.3, 1.4, and 1.5 (and all further VOTable 1 versions).
+While this keeps confusing implementors, this is at the same time an
+example for the sort of pain one has to accept when maintaining
+interoperability with systems that were designed in a suboptimal way –
+and of how little errors made when authoring standards can explode
+into huge problems when evolving technologies.
+
+
 Case Study: Cone Search
 -----------------------
 
