@@ -277,7 +277,8 @@ Unversioned Standard ids
 
 In the registry, it was originally envisioned that standards would
 be identified through the same string regardless of the version, and
-different versions would be handled on the level of interfaces.  It was
+different versions would be handled on the level of interfaces.  Based
+on how actual clients were doing their discovery, it was
 later decided that that was not a good idea and different major versions
 should also have different standard ids.
 
