@@ -343,7 +343,42 @@ unclear.
 Conclusions
 -----------
 
-It is certainly a nasty problem.  We need to talk and scheme.
+It is certainly a nasty problem.  We will need to compromise, and I
+suspect it will take an attempt or two to figure out which compromises
+are acceptable.
+
+MD, after pondering a bit, thinks that we ought to use SCS as a test
+case; while that's not exactly what the P3T has focused on, it seems to
+be a manageable problem with relatively clear, easily explained bounds
+(which, for instance, MD couldn't do for outlawing urlencoded
+parameters).
+
+The main compromise MD would foresee would probably be on the side of
+requiring service operators to maintain two major versions for a while
+(under the premise that clients are harder than services).  Among the
+things MD would like to fix is that SCS services would normally receive
+a table name, so VizieR could run just a single SCS2 service; and
+there's quite a bit more, like expressing additional constraints, but
+that is DAL turf, not ours.
+
+Once there *is* the new major version, it would be us who have figure
+out:
+
+* how new and old services can coexist
+* whether to require SCS1 on new SCS services for the transitionary
+  period
+* how we can keep registry queries for ”give me all cone searches,
+  preferring SCS2 if it's there” halfway comprensible
+* how to monitor the transition, when to start petitioning services
+  that they really need to migrate now
+* when and how to decide to drop SCS1 (fixed term?  based on a quorum?)
+* and probably much more.
+
+Let's get to work.
+
+
+
+
 
 .. [#notideal] By the way, that hasn't worked too well either.  The
   golden rule of interoperability (“be strict in what you produce, be
