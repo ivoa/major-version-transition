@@ -264,6 +264,73 @@ suggest that it will simply not work.  As of 2025, are still new SIAP1
 services coming online, and SIAP2-only clients will miss out out quite a
 few datasets out there.
 
+Historical Case Study: PLASTIC to SAMP
+--------------------------------------
+
+In around 2006 a protocol for messaging between desktop clients
+called PLASTIC (PLatform for AStronomy Tool InterConnection)
+was developed within the virtual observatory, though not endorsed
+by the IVOA, and documented in an
+`IVOA Note describing PLASTIC 0.5 <https://www.ivoa.net/documents/latest/PlasticDesktopInterop.html>`_.
+It proved quite popular, with client implementations in at least
+a dozen applications (all developed in Europe?)
+including Aladin, TOPCAT, VisIVO, the
+AstroGrid VODesktop tool and a Python interface.
+By 2007 it was clear that there were various issues with the
+protocol that should be fixed, relating to obvious security holes,
+asynchronous messaging, partial dependence of the standard on the Java
+platform and a number of other things that experience showed would be
+better done differently.
+Lively discussion led to a proposal for a backwardly incompatible
+protocol based on the same ideas, initially named PLASTIC 1.0 but
+subsequently renamed SAMP.
+By the end of 2008 a Working Draft of SAMP 1.0 with hub and some
+prototype client implementations were available.
+The first IVOA SAMP Recommendation was SAMP 1.11 in 2009.
+Discussions of this transition were mostly conducted in
+`Beijing 2007 <https://wiki.ivoa.net/twiki/bin/view/IVOA/InterOpMay2007Applications#Applications%20Messaging%20Standard>`_,
+`Trieste 2008 <https://wiki.ivoa.net/twiki/bin/view/IVOA/InterOpMay2008Applications#SAMP%20Sessions>`_ and
+`Baltimore 2008 <https://wiki.ivoa.net/twiki/bin/view/IVOA/InterOpOct2008Applications>`_.
+
+Options were considered for the migration/coexistence of the two protocols:
+
+* Do nothing (wait until everybody speaks SAMP)
+* Implement dual-mode applications (select SAMP or PLASTIC on startup)
+* Provide translation middleware (implement PLASTIC facade on SAMP messages)
+
+In the end a combination of the first two options were used
+(the third was judged too difficult/messy).
+Enthusiastic clients - those whose developers considered inter-client
+messaging to be important functionality - like TOPCAT and Aladin
+were able to operate in either mode depending on the environment
+they found themselves in,
+while others ditched PLASTIC for SAMP support, or dropped out of
+inter-client messaging altogether.
+Some new ones, notably ds9, that had not been PLASTIC capable
+went ahead and adopted SAMP since it was better and had wider backing.
+
+Within a couple of years, PLASTIC had pretty much been replaced
+by SAMP in running clients and hubs.
+
+This was partly facilitated by churn in VO applications at the time,
+and by the fact that inter-client messaging is a nice-to-have,
+perhaps mainly used by more VO-savvy users, and always somewhat
+vulnerable to IPC issues so used with some awareness of unreliablility.
+If a user found that messaging had stopped working following an
+upgrade of an application from PLASTIC to SAMP, they might be
+stimulated to upgrade other components, but if not they could probably
+achieve the same things in other ways.
+The whole lifetime of PLASTIC was only a couple of years before it
+turned into SAMP.
+It's probably also that case that a large proportion of messaging
+was between a few high-profile clients that did implement dual-mode
+interfaces.
+
+Conclusion: ditching a working and successful protocol and replacing
+it with a better but incompatible one was a bit scary, but it
+worked out OK.  The transition was facilitated by some, but not all,
+implementations providing simultaneous support for both protocols.
+
 
 Extra Traps
 -----------
